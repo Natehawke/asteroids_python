@@ -11,8 +11,6 @@ pygame.init()
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-timer = pygame.time.Clock()
-dt: float = 0.0
 
 # This is the main file for the asteroids game. It will run the game and handle all the events. 
 def main():
@@ -22,8 +20,14 @@ def main():
 
     player_object = Player(x = SCREEN_WIDTH / 2, y = SCREEN_HEIGHT / 2)
 
+    # Initialize the timer
+    timer = pygame.time.Clock()
+
     running = True
-    while True:
+    while running:
+        # Calculate dt inside the game loop
+        dt = timer.get_time() / 1000.0
+
         # Make the close button on the window work
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -32,15 +36,22 @@ def main():
             
         screen.fill((0, 0, 0))  # Fill the screen with black
 
+        # Update the player instance
+        player_object.update(dt)  
+
         # Draw the player instance
         player_object.draw(screen)
 
+        
+
         pygame.display.flip()  # Update the display
+
         # Limit the frame rate to 60 FPS
         timer.tick(60)
-        dt = timer.get_time() / 1000.0
 
-        
+
+    # Clean up pygame
+    pygame.quit()     
 
 if __name__ == "__main__": 
     main()
