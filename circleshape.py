@@ -18,7 +18,7 @@ class CircleShape(pygame.sprite.Sprite):
         # Sub-classe must override this method.
         pass
 
-    def udpate(self, dt):
+    def update(self, dt):
         # Sub-class must override this method.
         pass
 
@@ -43,5 +43,10 @@ class CircleShape(pygame.sprite.Sprite):
     def set_radius(self, radius):
         self.radius = radius
 
+    def check_collision(self, other):
+        # Check if the two circles are colliding
+        distance = self.position.distance_to(other.position)
+        return distance < (self.radius + other.radius)
+    
 
     
